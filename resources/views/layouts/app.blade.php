@@ -17,6 +17,7 @@
 
         <!-- Scripts -->
         <script src="{{ mix('js/app.js') }}" defer></script>
+        <link rel="shortcut icon" href="{{{ asset('img/logoitq.png') }}}">
     </head>
     <body class="font-sans antialiased">
         <x-jet-banner />

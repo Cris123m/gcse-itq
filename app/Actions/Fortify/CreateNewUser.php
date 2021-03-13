@@ -24,15 +24,25 @@ class CreateNewUser implements CreatesNewUsers
     {
         Validator::make($input, [
             'name' => ['required', 'string', 'max:255'],
+            'identification' => ['required', 'integer', 'min:0100000000' ,'max:9999999999', 'unique:users'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'institutional_email' => [ 'string', 'email', 'max:255', 'unique:users'],
+            'phone' => ['string','min:7','max:9'],
+            'cellphone' => ['string','min:10','max:10'],
+            'address' => ['string'],
             'password' => $this->passwordRules(),
             'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['required', 'accepted'] : '',
         ])->validate();
 
         return DB::transaction(function () use ($input) {
             return tap(User::create([
+                'identification' => $input['identification'],
                 'name' => $input['name'],
                 'email' => $input['email'],
+                'institutional_email' => $input['institutional_email'],
+                'phone' => $input['phone'],
+                'cellphone' => $input['cellphone'],
+                'address' => $input['address'],
                 'password' => Hash::make($input['password']),
             ]), function (User $user) {
                 $this->createTeam($user);
@@ -50,7 +60,7 @@ class CreateNewUser implements CreatesNewUsers
     {
         $user->ownedTeams()->save(Team::forceCreate([
             'user_id' => $user->id,
-            'name' => explode(' ', $user->name, 2)[0]."'s Team",
+            'name' => "Equipo de ".explode(' ', $user->name, 2)[0],
             'personal_team' => true,
         ]));
     }

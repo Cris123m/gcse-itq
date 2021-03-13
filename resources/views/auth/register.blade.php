@@ -8,6 +8,11 @@
 
         <form method="POST" action="{{ route('register') }}">
             @csrf
+            <div class="grid grid-cols-2 gap-4">
+            <div>
+                <x-jet-label for="identification" value="{{ __('Identification') }}" />
+                <x-jet-input id="identification" class="block mt-1 w-full" type="text" name="identification" :value="old('identification')" required autofocus autocomplete="identification"/>
+            </div>
 
             <div>
                 <x-jet-label for="name" value="{{ __('Name') }}" />
@@ -17,6 +22,27 @@
             <div class="mt-4">
                 <x-jet-label for="email" value="{{ __('Email') }}" />
                 <x-jet-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
+            </div>
+
+            <div class="mt-4">
+                <x-jet-label for="institutional_email" value="{{ __('Institutional Email') }}" />
+                <x-jet-input id="institutional_email" class="block mt-1 w-full" type="email" name="institutional_email" :value="old('institutional_email')" autofocus autocomplete="lastnames"/>
+            </div>
+
+            <div class="mt-4">
+                <x-jet-label for="phone" value="{{ __('Phone') }}" />
+                <x-jet-input id="phone" class="block mt-1 w-full" type="text" name="phone" :value="old('phone')" autofocus autocomplete="phone"/>
+            </div>
+
+            <div class="mt-4">
+                <x-jet-label for="cellphone" value="{{ __('Cellphone') }}" />
+                <x-jet-input id="cellphone" class="block mt-1 w-full" type="text" name="cellphone" :value="old('cellphone')" autofocus autocomplete="cellphone"/>
+            </div>
+
+            <div class="col-span-2">
+                <x-jet-label for="address" value="{{ __('Address') }}" />
+                <textarea id="address" name="address" rows="3" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border-gray-300 rounded-md" :value="old('address')" autofocus autocomplete="address" placeholder="Av. 10 de Agosto y Av. Colón"></textarea>
+                <!-- <x-jet-input id="address" class="block mt-1 w-full" type="text" name="address" :value="old('address')" required autofocus autocomplete="address" /> -->
             </div>
 
             <div class="mt-4">
@@ -54,6 +80,7 @@
                 <x-jet-button class="ml-4">
                     {{ __('Register') }}
                 </x-jet-button>
+            </div>
             </div>
         </form>
     </x-jet-authentication-card>
